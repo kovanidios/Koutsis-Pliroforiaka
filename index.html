@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f6f2">
+    <meta name="description" content="Find a real Athens venue and a time that works for everyone.">
+    <title>Gather Athens — make a plan together</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="venues.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Gather home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="M6 17.5 13.2 24 26 8" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span>gather<span class="brand-period">.</span></span>
+        </a>
+        <div class="topbar-right">
+          <span class="room-label"><span class="live-dot"></span> ROOM <strong id="room-code">—</strong></span>
+          <button class="invite-button" id="invite-button" type="button">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Invite friends
+          </button>
+          <button class="avatar avatar-self" id="profile-avatar" aria-label="Your profile">?</button>
+        </div>
+      </header>
+
+      <main class="main-layout">
+        <section class="left-column" aria-label="Group decision">
+          <div class="eyebrow"><span class="sparkle">✳</span> ATHENS, TOGETHER</div>
+          <h1>Pick a place.<br><span>Find your time.</span></h1>
+          <p class="intro">Swipe real Athens spots, then find a time that works for the whole crew.</p>
+
+          <div class="category-switcher" role="tablist" aria-label="Choose what to decide">
+            <button class="category-tab active" role="tab" aria-selected="true" data-category="restaurants">
+              <span class="category-icon">🍜</span> Restaurants
+            </button>
+            <button class="category-tab" role="tab" aria-selected="false" data-category="cinemas">
+              <span class="category-icon">🎬</span> Cinemas
+            </button>
+            <button class="category-tab" role="tab" aria-selected="false" data-category="bars">
+              <span class="category-icon">🍸</span> Bars
+            </button>
+          </div>
+
+          <div class="swipe-stage" id="swipe-stage">
+            <div class="stack-card stack-card-back"></div>
+            <div class="place-card" id="place-card">
+              <div class="place-image-wrap">
+                <img class="place-image" id="place-image" src="" alt="">
+                <div class="image-shade"></div>
+                <span class="card-badge" id="card-badge"></span>
+                <span class="swipe-stamp like-stamp" id="like-stamp">LIKE</span>
+                <span class="swipe-stamp pass-stamp" id="pass-stamp">NOPE</span>
+                <div class="place-heading">
+                  <h2 id="place-name"></h2>
+                  <div class="place-meta" id="place-meta"></div>
+                </div>
+                <button class="info-button" id="info-button" aria-label="More about this option" type="button">i</button>
+              </div>
+              <div class="place-details">
+                <div class="detail-topline">
+                  <div class="place-category" id="place-category"></div>
+                  <a class="place-price" id="map-link" target="_blank" rel="noopener noreferrer">OPEN MAP ↗</a>
+                </div>
+                <p class="place-description" id="place-description"></p>
+                <div class="vote-row" id="vote-row" aria-label="Group votes"></div>
+              </div>
+            </div>
+            <div class="empty-state" id="empty-state" hidden>
+              <span class="empty-emoji">✨</span>
+              <h2>All caught up!</h2>
+              <p>You've seen every option in this category. Try another category or start over.</p>
+              <button class="restart-button" id="restart-button" type="button">Shuffle again</button>
+            </div>
+          </div>
+
+          <div class="swipe-controls" id="swipe-controls">
+            <button class="swipe-button pass-button" id="pass-button" type="button" aria-label="Pass on this option">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
+            <button class="swipe-button like-button" id="like-button" type="button" aria-label="Like this option">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 8.8c0 4.4-8.8 10-8.8 10s-8.8-5.6-8.8-10a4.8 4.8 0 0 1 8.8-2.6 4.8 4.8 0 0 1 8.8 2.6Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <p class="keyboard-hint">A decision is one tap away <span>·</span> <kbd>←</kbd> pass <kbd>→</kbd> like</p>
+        </section>
+
+        <aside class="right-column" aria-label="Group progress">
+          <section class="group-panel">
+            <div class="panel-heading">
+              <div>
+                <div class="eyebrow">YOUR CREW</div>
+                <h2 id="group-name">Your group</h2>
+              </div>
+              <button class="more-button" aria-label="Group options" type="button">···</button>
+            </div>
+            <div class="member-list" id="member-list"></div>
+            <div class="group-progress">
+              <div class="progress-label"><span>Group progress</span><strong id="progress-count">0 of 4</strong></div>
+              <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+              <p id="progress-caption">Your crew is warming up. Keep swiping!</p>
+            </div>
+          </section>
+
+          <section class="schedule-panel" id="schedule-panel" aria-label="Weekly availability">
+            <div class="panel-heading schedule-heading">
+              <div>
+                <div class="eyebrow">ATHENS TIME · NEXT 7 DAYS</div>
+                <h2>When are you free?</h2>
+              </div>
+            </div>
+            <p class="schedule-intro">Tap every time that works for you. We'll find the overlap.</p>
+            <div class="period-legend"><span>☀ Morning · 08–12</span><span>◷ Afternoon · 12–17</span><span>☾ Evening · 17–23</span></div>
+            <div class="availability-table" id="availability-table" aria-label="Availability by date and time"></div>
+            <div class="schedule-results" id="schedule-results" aria-live="polite"></div>
+          </section>
+
+          <section class="how-panel">
+            <div class="how-icon">✳</div>
+            <div>
+              <h3>One match = the plan</h3>
+              <p>When everyone says yes to the same thing, it's a date. No tiebreakers, no 47-message threads.</p>
+            </div>
+          </section>
+
+          <div class="mini-note"><span>✦</span> Better plans happen together.</div>
+        </aside>
+      </main>
+      <footer class="footer"><span>REAL ATHENS PLACES. YOUR CREW'S SCHEDULE.</span><span>LESS CHAT. MORE PLANS. <b>♥</b></span></footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="match-overlay" id="match-overlay" aria-hidden="true">
+      <div class="confetti confetti-one"></div><div class="confetti confetti-two"></div><div class="confetti confetti-three"></div>
+      <div class="match-dialog" role="dialog" aria-modal="true" aria-labelledby="match-title">
+        <button class="match-close" id="match-close" type="button" aria-label="Close match">×</button>
+        <div class="match-sparkle">✳</div>
+        <div class="eyebrow">IT'S A GROUP THING</div>
+        <h2 id="match-title">You all said yes!</h2>
+        <p id="match-copy">Everyone in the group picked this Athens spot.</p>
+        <img id="match-image" class="match-image" src="" alt="">
+        <h3 id="match-name"></h3>
+        <p class="match-subtitle" id="match-subtitle"></p>
+        <a class="match-map-link" id="match-map-link" target="_blank" rel="noopener noreferrer">Open venue in Maps ↗</a>
+        <div class="match-avatars" id="match-avatars"></div>
+        <button class="done-button" id="done-button" type="button">Sounds like a plan <span>→</span></button>
+        <button class="keep-going-button" id="keep-going-button" type="button">See the group schedule</button>
+      </div>
+    </div>
+    <div class="info-overlay" id="info-overlay" aria-hidden="true">
+      <div class="info-dialog" role="dialog" aria-modal="true" aria-labelledby="info-title">
+        <button class="match-close" id="info-close" type="button" aria-label="Close details">×</button>
+        <div class="eyebrow">A LITTLE MORE ABOUT IT</div>
+        <h2 id="info-title"></h2>
+        <p id="info-copy"></p>
+        <a class="match-map-link info-map-link" id="info-map" target="_blank" rel="noopener noreferrer">Open venue in Maps ↗</a>
+        <button class="done-button" id="info-done" type="button">Got it</button>
+      </div>
+    </div>
+    <div class="room-gate" id="room-gate">
+      <section class="room-dialog" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+        <a class="brand gate-brand" href="#" aria-label="Gather home">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M6 17.5 13.2 24 26 8" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>gather<span class="brand-period">.</span></span>
+        </a>
+        <div class="eyebrow">MAKE A PLAN IN ATHENS</div>
+        <h1 id="gate-title">Your people,<br><span>your next plan.</span></h1>
+        <p>Start a room or join your friends with their invite code.</p>
+        <label class="gate-label" for="member-name">Your name <span>(optional)</span></label>
+        <input class="gate-input" id="member-name" maxlength="32" autocomplete="name" placeholder="Leave blank to join as Guest">
+        <a class="gate-primary" id="create-room" href="/lobby.html?new=1">Create a group <span>→</span></a>
+        <div class="gate-divider"><span>OR JOIN YOUR CREW</span></div>
+        <label class="gate-label" for="room-code-input">Room code</label>
+        <div class="join-row">
+          <input class="gate-input code-input" id="room-code-input" maxlength="8" autocomplete="off" placeholder="e.g. 4K8M2P9Q">
+          <button class="gate-secondary" id="join-room" type="button">Join</button>
+        </div>
+        <p class="gate-error" id="gate-error" role="alert"></p>
+      </section>
+    </div>
+  </body>
+</html>

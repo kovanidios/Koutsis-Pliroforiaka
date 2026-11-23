@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f6f2">
+    <meta name="description" content="Invite your friends, wait for the group, and start planning together.">
+    <title>Gather — waiting room</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="lobby.js" defer></script>
+  </head>
+  <body class="lobby-page">
+    <div class="lobby-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Gather home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="M6 17.5 13.2 24 26 8" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span>gather<span class="brand-period">.</span></span>
+        </a>
+        <span class="room-label"><span class="live-dot"></span> GROUP WAITING ROOM</span>
+      </header>
+
+      <main class="lobby-main">
+        <section class="lobby-card" aria-live="polite">
+          <div class="lobby-emblem">✳</div>
+          <div class="eyebrow" id="lobby-eyebrow">YOUR GROUP</div>
+          <h1 id="lobby-title">Getting your room ready…</h1>
+          <p class="lobby-description" id="lobby-description">Connecting to your group.</p>
+
+          <div class="lobby-error" id="lobby-error" role="alert"></div>
+          <div class="lobby-join-form" id="join-form" hidden>
+            <label class="gate-label" for="join-name">Your name <span>(optional)</span></label>
+            <input class="gate-input" id="join-name" maxlength="32" autocomplete="name" placeholder="Leave blank to join as Guest">
+            <button class="gate-primary" id="join-button" type="button">Join this group <span>→</span></button>
+          </div>
+
+          <section class="lobby-invite" id="lobby-invite" hidden aria-label="Share invite">
+            <div class="eyebrow">SHARE THIS WITH YOUR FRIENDS</div>
+            <div class="lobby-code" id="lobby-code"></div>
+            <div class="lobby-invite-actions">
+              <button class="gate-secondary" id="copy-code" type="button">Copy code</button>
+              <button class="gate-secondary" id="copy-link" type="button">Copy invite link</button>
+            </div>
+            <p>They can open the link or enter this code to join your group.</p>
+          </section>
+
+          <section class="lobby-members" id="lobby-members" hidden aria-label="Group members">
+            <div class="lobby-members-heading">
+              <span>YOUR CREW</span>
+              <strong id="member-count">0 people</strong>
+            </div>
+            <div class="lobby-member-list" id="member-list"></div>
+          </section>
+
+          <div class="lobby-waiting" id="lobby-waiting" hidden>
+            <span class="waiting-pulse"></span>
+            <span id="waiting-message">Waiting for the group creator to start…</span>
+          </div>
+          <button class="gate-primary lobby-start" id="start-button" type="button" hidden disabled>Start choosing places <span>→</span></button>
+          <p class="lobby-footnote" id="lobby-footnote" hidden>You'll all move to the place picker together.</p>
+        </section>
+      </main>
+      <footer class="footer"><span>REAL ATHENS PLACES. YOUR CREW'S SCHEDULE.</span><span>LESS CHAT. MORE PLANS. <b>♥</b></span></footer>
+    </div>
+  </body>
+</html>
